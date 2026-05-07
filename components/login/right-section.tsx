@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export const RightSection = () => {
 
@@ -32,7 +33,7 @@ export const RightSection = () => {
     const handelLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         // fetch API
-        await fetch(
+        const response = await fetch(
             'http://localhost:8080/users/login', {
                 method: "POST",
                 headers: {
@@ -40,11 +41,18 @@ export const RightSection = () => {
                 },
                 body: JSON.stringify({
                     email: email,
-                    pasword: password,
+                    password: password,
                 }),
-            }).then((response) => {
-            console.log(response.json());
-        });
+            })
+        if (response.status === 200) {
+                toast.success("Login feito com sucesso");
+
+        if (typeof window !== "undefined") {
+                window.location.href = "/home";
+            }
+        } else {
+            toast.error("Não foi possível fazer login, tente novamente")
+        }
     };
 
     console.log({ email: email, password: password });

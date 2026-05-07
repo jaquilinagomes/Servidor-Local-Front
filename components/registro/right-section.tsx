@@ -5,6 +5,8 @@ import { Button } from "../ui/button"
 import { Card, CardContent, CardHeader } from "../ui/card"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
+import { toast } from "sonner"
+import { setCookie } from "nookies"
 import { useState } from "react"
 
 
@@ -93,10 +95,10 @@ export const RightSectionRegistro = () => {
             }
         };
 
-        const handelLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        const handelRegister = async (e: React.MouseEvent<HTMLButtonElement>) => {
             e.preventDefault();
             // fetch API
-            await fetch(
+            const response = await fetch(
                 'http://localhost:8080/users/create', {
                     method: "POST",
                     headers: {
@@ -104,22 +106,29 @@ export const RightSectionRegistro = () => {
                     },
                     body: JSON.stringify({
                         nome: nome,
-                        numeroIdentificacao: numeroIdentificacao,
-                        dataNascimento: dataNascimento,
+                        numero_identificacao: numeroIdentificacao,
+                        data_nascimento: dataNascimento,
                         email: email,
-                        pasword: password,
+                        password: password,
                         pais: pais,
                         localidade: localidade,
                         telefone: telefone,
+                        enabled: true,
                         role: role,
                     }),
-                }).then((response) => {
-                console.log(response.json());
-            });
-        };
-    
-        console.log({ nome: nome, numeroIdentificaco: numeroIdentificacao, dataNascimento: dataNascimento, email: email, password: password, pais: pais, localidade: localidade, telefone: telefone, role: role });
+                })
+            if (response.status === 200) {
+                toast.success("Utilizador criado com sucesso");
 
+            if (typeof window !== "undefined") {
+                window.location.href = "/login";
+            }
+        } else {
+            toast.error("Nao foi possivel criar conta, tente novamente")
+        }
+    };
+
+        console.log({ nome: nome, numero_identificaco: numeroIdentificacao, data_nascimento: dataNascimento, email: email, password: password, pais: pais, localidade: localidade, telefone: telefone, role: role });
 
     return (
         <div className="w-1/2 flex flex-col justify-center">
@@ -142,7 +151,7 @@ export const RightSectionRegistro = () => {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <Label>Numero Indentificacao</Label>
+                        <Label>Numero Identificacao</Label>
                         <Input 
                             type="text" 
                             placeholder="F009G" 
@@ -156,7 +165,7 @@ export const RightSectionRegistro = () => {
                         <Label>Data Nascimento</Label>
                         <Input 
                             type="text" 
-                            placeholder="2000-04-02" 
+                            placeholder="11-04-2002" 
                             className="py-2 text-lg h-10"
                             value={dataNascimento}
                             onChange={changeDataNascimento}
@@ -230,7 +239,7 @@ export const RightSectionRegistro = () => {
                     </div>
 
                     <Button 
-                    onClick={handelLogin}
+                    onClick={handelRegister}
                     className="bg-[#13A4EC] rounded-md text-white font-bold py-3 drop-shadow-lg drop-shadow-gray-200">
                         Complete Registration
                     </Button>
