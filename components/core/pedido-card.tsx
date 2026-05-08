@@ -1,86 +1,67 @@
+import { Wrench } from "lucide-react";
 import { Card, CardContent } from "../ui/card"
+import Image from "next/image";
+import { Button } from "../ui/button";
 
-interface CategoriaType {
+export interface CategoriaType {
     id: string;
     nome: string;
     icone: string;
+    
 }
-interface PedidoCardProps {
+export interface PedidoCardProps {
     title: string;
     description: string;
     image: string;
     category: CategoriaType;
 }
-
 export const PedidoCard = (PedidoCardProps: PedidoCardProps) => {
     return (
-        <div>
-        <Card>
-            <CardContent>
-                <div >
-                    <img src="/" alt="12" />
-                    <h1 className="font-bold">Emergenncy Plumbing</h1>
-                    <p>24/7 support for leaks, pipe bursts, and urgent drainage issues</p>
-                </div>
-                <button className="ml-auto bg-[#13A4EC] rounded-md text-white font-bold py-3 shadow-lg px-6">Browse Providers</button>
-            </CardContent>
-        </Card>
+        <Card className="w-[340px] overflow-hidden rounded-3xl shadow-lg border-0">
+            <div className="relative h-44 w-full">
+                <Image
+                    src={PedidoCardProps.image} 
+                    alt={PedidoCardProps.title}
+                    fill
+                    className="object-cover"
+                />
 
-        <Card>
-            <CardContent>
+                {/* Icone */}
+                <div className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md">
+                    <Wrench className="h-7 w-7 text-blue-500" />
+                </div>
+            </div>
+            <CardContent className="space-y-5 p-6">
+                
                 <div>
-                    <img src="/" alt="12" />
-                    <h1 className="font-bold">Light Fixture Installation</h1>
-                    <p>Professional Installation for chandeliers, sconces, and recessed lighting.</p>
+                    <h2 className="text-2xl font-bold">
+                        Emergency Plumbing
+                    </h2>
+
+                    <p className="mt-2 text-gray-500">
+                        24/7 support for leaks, pipe bursts,
+                        and urgent drainage issues.
+                    </p>
                 </div>
-                <button className="ml-auto bg-[#13A4EC] rounded-md text-white font-bold py-3 shadow-lg px-6">Browse Providers</button>
+
+                <div className="border-t" />
+
+                {/* Footer */}
+                <div className="flex items-center justify-between">
+                    <div>
+                        <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase">
+                            Starting at
+                        </p>
+                        <p className="text-3xl font-bold">
+                            $89.00
+                        </p>
+                    </div>
+
+                    <Button className="rounded-xl bg-blue-500 px-6 py-6 text-white hover:bg-blue-600">
+                        Browse Providers
+                    </Button>
+                </div>
             </CardContent>
         </Card>
-
-        <Card>
-            <CardContent>
-                <div>
-                    <img src="/" alt="12" />
-                    <h1 className="font-bold">Custom Cabinetry</h1>
-                    <p>Bespoke storage solutions and repairs for your kitchen or living space.</p>
-                </div>
-                <button className="ml-auto bg-[#13A4EC] rounded-md text-white font-bold py-3 shadow-lg px-6">Browse Providers</button>
-            </CardContent>
-        </Card>
-
-            <Card>
-            <CardContent>
-                <div>
-                    <img src="/" alt="12" />
-                    <h1 className="font-bold">Interior Wall Painting</h1>
-                    <p>Precision Painting for single rooms or entire home interiors.</p>
-                </div>
-                <button className="ml-auto bg-[#13A4EC] rounded-md text-white font-bold py-3 shadow-lg px-6">Browse Providers</button>
-            </CardContent>
-        </Card>
-
-            <Card>
-            <CardContent>
-                <div>
-                    <img src="/" alt="12" />
-                    <h1 className="font-bold">AC Maintenance</h1>
-                    <p>Seasons cleaning and efficienty checks for cooling systems.</p>
-                </div>
-                <button className="ml-auto bg-[#13A4EC] rounded-md text-white font-bold py-3 shadow-lg px-6">Browse Providers</button>
-            </CardContent>
-        </Card>
-
-                <Card>
-            <CardContent>
-                <div>
-                    <img src="/" alt="12" />
-                    <h1 className="font-bold">Smart Lock Setup</h1>
-                    <p>Installation and synchronization of digital security locks and cameras.</p>
-                </div>
-                <button className="ml-auto bg-[#13A4EC] rounded-md text-white font-bold py-3 shadow-lg px-6">Browse Providers</button>
-            </CardContent>
-        </Card>
-        </div>
-
-        )
+    )
 }
