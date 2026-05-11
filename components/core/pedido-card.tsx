@@ -1,67 +1,60 @@
-import { Wrench } from "lucide-react";
-import { Card, CardContent } from "../ui/card"
 import Image from "next/image";
-import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader } from "../ui/card";
+import Link from "next/link";
 
-export interface CategoriaType {
-    id: string;
-    nome: string;
-    icone: string;
-    
-}
-export interface PedidoCardProps {
-    title: string;
-    description: string;
-    image: string;
-    category: CategoriaType;
-}
-export const PedidoCard = (PedidoCardProps: PedidoCardProps) => {
-    return (
-        <Card className="w-[340px] overflow-hidden rounded-3xl shadow-lg border-0">
-            <div className="relative h-44 w-full">
+    interface CategoriaType {
+        id: string;
+        nome: string;
+        icone: string;
+    }
+
+    interface PedidoCardProps {
+        id: string;
+        title: string;
+        desciption: string;
+        image: string;
+        category: CategoriaType;
+    }
+
+    export const PedidoCard = (pedidoCardProps: PedidoCardProps) => {
+        return (
+        <Card className="h-[400px] w-full">
+            <CardHeader>
+            <div className="w-full h-[200px] relative">
                 <Image
-                    src={PedidoCardProps.image} 
-                    alt={PedidoCardProps.title}
-                    fill
-                    className="object-cover"
-                />
+                src={pedidoCardProps.image}
+                alt={pedidoCardProps.title}
+                fill
+                className="object-cover"
+            />
 
-                {/* Icone */}
-                <div className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md">
-                    <Wrench className="h-7 w-7 text-blue-500" />
+            <div className="absolute top-1/2 left-1/2 bg-secondary/80 text-secondary-foreground px-2 py-1 rounded-full text-sm">
+                <Image
+                    src={pedidoCardProps.category.icone}
+                    alt={pedidoCardProps.category.nome}
+                    width={20}
+                    height={20}
+                />
                 </div>
             </div>
-            <CardContent className="space-y-5 p-6">
-                
+            </CardHeader>
+            <CardContent>
+            <div>
+                <h1>{pedidoCardProps.title}</h1>
+                <p>{pedidoCardProps.desciption}</p>
+            </div>
+
+            <div className="flex w-full items-center justify-between">
                 <div>
-                    <h2 className="text-2xl font-bold">
-                        Emergency Plumbing
-                    </h2>
+                    <span>Average Price:</span>
+                    <span>$100</span>
+            </div>
 
-                    <p className="mt-2 text-gray-500">
-                        24/7 support for leaks, pipe bursts,
-                        and urgent drainage issues.
-                    </p>
-                </div>
-
-                <div className="border-t" />
-
-                {/* Footer */}
-                <div className="flex items-center justify-between">
-                    <div>
-                        <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase">
-                            Starting at
-                        </p>
-                        <p className="text-3xl font-bold">
-                            $89.00
-                        </p>
-                    </div>
-
-                    <Button className="rounded-xl bg-blue-500 px-6 py-6 text-white hover:bg-blue-600">
-                        Browse Providers
-                    </Button>
-                </div>
+            <Link href={`/pedido/${pedidoCardProps.id}`} className=" ">
+                Explore
+            </Link>
+            </div>
             </CardContent>
         </Card>
-    )
-}
+        );
+    };

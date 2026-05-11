@@ -6,9 +6,7 @@ import { Card, CardContent, CardHeader } from "../ui/card"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { toast } from "sonner"
-import { setCookie } from "nookies"
 import { useState } from "react"
-
 
 export const RightSectionRegistro = () => {
 
