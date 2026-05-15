@@ -1,3 +1,5 @@
+"use client"
+
 import client from "@/services/apollo";
 import { ApolloProvider } from "@apollo/client/react";
 
